@@ -45,19 +45,19 @@ public class GameController : MonoBehaviour {
 			direction = -1;
 		switch (NESW) {
 		case 0:
-			nextPos = new Vector2 (nextPos.x, nextPos.y + 1.28f * direction);
+			nextPos = new Vector2 (nextPos.x, nextPos.y + 1.0f * direction);
 			break;
 
 		case 1:
-			nextPos = new Vector2 (nextPos.x + 1.28f * direction, nextPos.y);
+			nextPos = new Vector2 (nextPos.x + 1.0f * direction, nextPos.y);
 			break;
 		
 		case 2:
-			nextPos = new Vector2 (nextPos.x, nextPos.y - 1.28f * direction);
+			nextPos = new Vector2 (nextPos.x, nextPos.y - 1.0f * direction);
 			break;
 
 		case 3:
-			nextPos = new Vector2 (nextPos.x - 1.28f * direction, nextPos.y);
+			nextPos = new Vector2 (nextPos.x - 1.0f * direction, nextPos.y);
 			break;
 		}
 
