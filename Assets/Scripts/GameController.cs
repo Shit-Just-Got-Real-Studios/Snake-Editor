@@ -15,11 +15,12 @@ public class GameController : MonoBehaviour {
 	private int direction = 1;
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating ("Move", 0, 0.5f);
+		InvokeRepeating ("Move", 0, 0.075f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		//Move ();
 		ComChangeD ();
 		Food food = Eatable.GetComponent <Food> ();
 		if (Head.transform.position == Eatable.transform.position) {
