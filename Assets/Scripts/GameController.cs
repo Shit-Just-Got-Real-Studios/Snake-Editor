@@ -14,10 +14,16 @@ public class GameController : MonoBehaviour {
 	private bool nightMode = false;
 	private int direction = 1;
 	// Use this for initialization
+	public Camera camera;
+
 	void Start () {
 		InvokeRepeating ("Move", 0, 0.075f);
 	}
-	
+
+	void OnBecameInvisible () {
+		Debug.Log ("Yes");
+		Wrap ();
+	}
 	// Update is called once per frame
 	void Update () {
 		//Move ();
@@ -34,6 +40,7 @@ public class GameController : MonoBehaviour {
 
 	void Move () {
 		Movement ();
+		StartCoroutine (checkVisible());
 		if (currentLength >= snakeLength)
 			TailFunc ();
 		else
@@ -83,5 +90,30 @@ public class GameController : MonoBehaviour {
 		SnakeController temp = Tail;
 		Tail = Tail.GetNext ();
 		temp.RemoveTail ();
+	}
+
+	void Wrap () {
+		if (NESW == 0) {
+			Head.transform.position = new Vector2 (Head.transform.position.x, -(Head.transform.position.y - 1));
+		}
+		if (NESW == 1) {
+			Head.transform.position = new Vector2 (-(Head.transform.position.x+1), Head.transform.position.y);
+
+		}
+		if (NESW == 2) {
+			Head.transform.position = new Vector2 (Head.transform.position.x, -(Head.transform.position.y + 1));
+
+		}
+		if (NESW == 3) {
+			Head.transform.position = new Vector2 (-(Head.transform.position.x-6), Head.transform.position.y);
+
+		}
+	}
+
+	IEnumerator checkVisible () {
+		yield return new WaitForEndOfFrame ();
+		Vector3 viewPos = camera.WorldToViewportPoint (Head.transform.position);
+		if (viewPos.x >= 1.0F || viewPos.x <= 0.0F || viewPos.y >= 1.0F || viewPos.y <= 0.0F)
+			Wrap ();
 	}
 }
