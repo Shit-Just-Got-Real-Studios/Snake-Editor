@@ -9,10 +9,8 @@ public class AIController : MonoBehaviour {
 	public SnakeController Tail;
 	public int NESW;
 	public Vector2 nextPos;
-	public int score = 0;
 	private bool nightMode = false;
 	private int direction = 1;
-	// Use this for initialization
 	public Camera camera;
 
 	void Start () {
@@ -21,7 +19,7 @@ public class AIController : MonoBehaviour {
 	}
 		
 	void Update () {
-		//Move ();
+		
 	}
 
 	void Move () {
@@ -71,9 +69,13 @@ public class AIController : MonoBehaviour {
 		if (NESW != 1 && Input.GetKeyDown (KeyCode.A))
 			NESW = 3;
 		*/
-		// NESW = escapeFromPlayer();
+		GameObject player = GameObject.Find ("GameController");
+		GameController gc = player.GetComponent<GameController> ();
 		NESW = Random.Range (0, 4);
-		
+		if (isPlayerNearby (gc.getHeadTransform())) {
+			Debug.Log ("Yes");
+			NESW = Random.Range (0, 4);
+		}
 	}
 
 	void TailFunc () {
@@ -82,9 +84,6 @@ public class AIController : MonoBehaviour {
 		temp.RemoveTail ();
 	}
 
-	int escapeFromPlayer () {
-		return 0;
-	}
 	void Wrap () {
 		if (NESW == 0) {
 			Head.transform.position = new Vector2 (Head.transform.position.x, -(Head.transform.position.y - 1));
@@ -103,6 +102,14 @@ public class AIController : MonoBehaviour {
 		}
 	}
 
+
+	public bool isPlayerNearby (Transform player) {
+		if (Vector3.Distance (player.position, Tail.transform.position) <= 4.0f)
+			return true;
+		else {
+			return false;
+		}
+	}
 	IEnumerator checkVisible () {
 		yield return new WaitForEndOfFrame ();
 		Vector3 viewPos = camera.WorldToViewportPoint (Head.transform.position);

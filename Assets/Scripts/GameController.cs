@@ -13,7 +13,6 @@ public class GameController : MonoBehaviour {
 	public int score = 0;
 	private bool nightMode = false;
 	private int direction = 1;
-	// Use this for initialization
 	public Camera camera;
 
 	void Start () {
@@ -26,7 +25,6 @@ public class GameController : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		//Move ();
 		ComChangeD ();
 		Food food = Eatable.GetComponent <Food> ();
 		if (Head.transform.position == Eatable.transform.position) {
@@ -110,6 +108,9 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public Transform getHeadTransform () {
+		return Head.transform;
+	}
 	IEnumerator checkVisible () {
 		yield return new WaitForEndOfFrame ();
 		Vector3 viewPos = camera.WorldToViewportPoint (Head.transform.position);
