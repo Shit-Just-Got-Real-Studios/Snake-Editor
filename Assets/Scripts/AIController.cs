@@ -15,7 +15,7 @@ public class AIController : MonoBehaviour {
 
 	void Start () {
 		InvokeRepeating ("Move", 0, 0.075f);
-		InvokeRepeating ("ComChangeD", 0, 2.0f);
+		InvokeRepeating ("ComChangeD", 0, 1.0f);
 	}
 		
 	void Update () {
@@ -104,8 +104,10 @@ public class AIController : MonoBehaviour {
 
 
 	public bool isPlayerNearby (Transform player) {
-		if (Vector3.Distance (player.position, Tail.transform.position) <= 4.0f)
+		if (Vector3.Distance (player.position, Tail.transform.position) <= 10.0f) {
+			Debug.Log ("Yes");
 			return true;
+		}
 		else {
 			return false;
 		}
