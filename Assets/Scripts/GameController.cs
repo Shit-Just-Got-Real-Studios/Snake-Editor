@@ -18,11 +18,7 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		InvokeRepeating ("Move", 0, 0.075f);
 	}
-
-	void OnBecameInvisible () {
-		Debug.Log ("Yes");
-		Wrap ();
-	}
+		
 	// Update is called once per frame
 	void Update () {
 		ComChangeD ();

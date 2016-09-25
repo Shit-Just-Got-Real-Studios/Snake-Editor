@@ -72,8 +72,15 @@ public class AIController : MonoBehaviour {
 		GameObject player = GameObject.Find ("GameController");
 		GameController gc = player.GetComponent<GameController> ();
 		NESW = Random.Range (0, 4);
+		if (NESW == 0)
+			NESW = Random.Range(0,2);
+		else if (NESW == 1)
+			NESW = Random.Range(0,3);
+		else if (NESW == 2)
+			NESW = Random.Range(1,4);
+		else if (NESW == 3)
+			NESW = Random.Range(2,4);
 		if (isPlayerNearby (gc.getHeadTransform())) {
-			Debug.Log ("Yes");
 			NESW = Random.Range (0, 4);
 		}
 	}
@@ -119,5 +126,9 @@ public class AIController : MonoBehaviour {
 			Head.transform.position = new Vector2 (-12f, Head.transform.position.y);
 		else if (viewPos.x >= 1.0F || viewPos.x <= 0.0F || viewPos.y >= 1.0F || viewPos.y <= 0.0F)
 			Wrap ();
+	}
+
+	public void callComChangeD () {
+		ComChangeD ();
 	}
 }
