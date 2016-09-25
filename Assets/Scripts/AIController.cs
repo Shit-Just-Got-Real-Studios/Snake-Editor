@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameController : MonoBehaviour {
+public class AIController : MonoBehaviour {
 	public int snakeLength;
 	public int currentLength;
 	public GameObject snakePrefab;
@@ -9,7 +9,6 @@ public class GameController : MonoBehaviour {
 	public SnakeController Tail;
 	public int NESW;
 	public Vector2 nextPos;
-	public GameObject Eatable;
 	public int score = 0;
 	private bool nightMode = false;
 	private int direction = 1;
@@ -18,24 +17,11 @@ public class GameController : MonoBehaviour {
 
 	void Start () {
 		InvokeRepeating ("Move", 0, 0.075f);
+		InvokeRepeating ("ComChangeD", 0, 2.0f);
 	}
-
-	void OnBecameInvisible () {
-		Debug.Log ("Yes");
-		Wrap ();
-	}
-	// Update is called once per frame
+		
 	void Update () {
 		//Move ();
-		ComChangeD ();
-		Food food = Eatable.GetComponent <Food> ();
-		if (Head.transform.position == Eatable.transform.position) {
-			food.ChangePos ();
-			snakeLength++;
-			score++;
-			if (score >= 3)
-				nightMode = true;
-		}
 	}
 
 	void Move () {
@@ -75,6 +61,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	void ComChangeD () {
+		/*
 		if (NESW != 2 && Input.GetKeyDown (KeyCode.W))
 			NESW = 0;
 		if (NESW != 3 && Input.GetKeyDown (KeyCode.D))
@@ -83,6 +70,9 @@ public class GameController : MonoBehaviour {
 			NESW = 2;
 		if (NESW != 1 && Input.GetKeyDown (KeyCode.A))
 			NESW = 3;
+		*/
+		// NESW = escapeFromPlayer();
+		NESW = Random.Range (0, 4);
 		
 	}
 
@@ -92,6 +82,9 @@ public class GameController : MonoBehaviour {
 		temp.RemoveTail ();
 	}
 
+	int escapeFromPlayer () {
+		return 0;
+	}
 	void Wrap () {
 		if (NESW == 0) {
 			Head.transform.position = new Vector2 (Head.transform.position.x, -(Head.transform.position.y - 1));
@@ -114,7 +107,7 @@ public class GameController : MonoBehaviour {
 		yield return new WaitForEndOfFrame ();
 		Vector3 viewPos = camera.WorldToViewportPoint (Head.transform.position);
 		if (viewPos.x >= 1.0F)
-			Head.transform.position = new Vector2 (-13f, Head.transform.position.y);
+			Head.transform.position = new Vector2 (-12f, Head.transform.position.y);
 		else if (viewPos.x >= 1.0F || viewPos.x <= 0.0F || viewPos.y >= 1.0F || viewPos.y <= 0.0F)
 			Wrap ();
 	}
